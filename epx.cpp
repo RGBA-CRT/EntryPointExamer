@@ -489,9 +489,12 @@ RET analyze_exe(const char *exe, const char *os_info_file)
 
     for (size_t i = 0; i < g_additional_dll_targets.size(); ++i)
     {
-        if (RET ret2 = analyze_exe(g_additional_dll_targets[i].c_str(), os_info_file))
-        {
-            ret = ret2;
+        const char* target_exe = g_additional_dll_targets[i].c_str();
+        if(strcmpi(exe, target_exe) != 0){
+            if (RET ret2 = analyze_exe(target_exe, os_info_file))
+            {
+                ret = ret2;
+            }
         }
     }
 
